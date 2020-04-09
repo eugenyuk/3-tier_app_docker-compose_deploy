@@ -5,11 +5,15 @@ version: '2.4'
 services:
   nginx:
     build:
+      # Build an image using a Dockerfile from this dir. 
       context: ./containers/nginx/
     ports:
+      # Redirect requests host:80->container:80
       - 80:80
     networks:
+      # Connect our container to the custom network
       flask-app-net:
+        # Assign ip address
         ipv4_address: 10.0.0.2
   flask:
     build:
@@ -17,11 +21,13 @@ services:
     volumes:
       - ./containers/flask:/flask
     ports:
+      # Expose port 9000 to inside containers' LAN
       - 9000
     networks:
       flask-app-net:
         ipv4_address: 10.0.0.3
 
+# Custom network description
 networks:
   flask-app-net:
     ipam:
