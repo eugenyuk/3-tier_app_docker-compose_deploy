@@ -111,3 +111,20 @@ networks:
           gateway: 10.0.0.1
 ```
 Every service is described. Also, a custom network 10.0.0.0/16 with default gateway 10.0.0.1 is configured. Every service is connected to that network and static ip addresses are assigned.
+
+## How to deploy
+
+Run using docker-compose:
+```bash
+[ansible-deploy]$ docker-compose up -d
+Starting ansible-deploy_nginx_1 ... done
+Starting ansible-deploy_flask_1 ... done
+```
+
+Check if containers are up:
+```bash
+[ansible-deploy]$ docker ps
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                     NAMES
+f43b71bdb398        ansible-deploy_nginx   "nginx -g 'daemon of…"   29 minutes ago      Up 3 seconds        0.0.0.0:80->80/tcp        ansible-deploy_nginx_1
+4fde69c4d727        ansible-deploy_flask   "uwsgi --socket 0.0.…"   53 minutes ago      Up 3 seconds        0.0.0.0:32782->9000/tcp   ansible-deploy_flask_1
+```
