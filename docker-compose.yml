@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+    nginx:
+        build:
+            context: ./containers/nginx/
+        ports:
+            - 80:80
+    flask:
+        build:
+            context: ./containers/flask/
+        volumes:
+            - ./containers/flask:/flask
+        ports:
+            - 9000
+
