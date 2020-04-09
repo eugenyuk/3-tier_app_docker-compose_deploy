@@ -1,16 +1,31 @@
-version: '2'
+# Specify version 2 (not 3) because ansible doesn't
+# support version 3 so far
+version: '2.4'
 
 services:
-    nginx:
-        build:
-            context: ./containers/nginx/
-        ports:
-            - 80:80
-    flask:
-        build:
-            context: ./containers/flask/
-        volumes:
-            - ./containers/flask:/flask
-        ports:
-            - 9000
+  nginx:
+    build:
+      context: ./containers/nginx/
+    ports:
+      - 80:80
+    networks:
+      flask-app-net:
+        ipv4_address: 10.0.0.2
+  flask:
+    build:
+      context: ./containers/flask/
+    volumes:
+      - ./containers/flask:/flask
+    ports:
+      - 9000
+    networks:
+      flask-app-net:
+        ipv4_address: 10.0.0.3
 
+networks:
+  flask-app-net:
+    ipam:
+      config:
+        - subnet: 10.0.0.0/16
+          gateway: 10.0.0.1
+        
