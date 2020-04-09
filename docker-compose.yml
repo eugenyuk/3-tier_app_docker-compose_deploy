@@ -35,7 +35,7 @@ services:
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=test_db
     volumes:
-      - ./containers/postgres:/var/lib/postgresql/data
+      - ./containers/postgres/data:/var/lib/postgresql/data
     networks:
       flask-app-net:
         ipv4_address: 10.0.0.4
