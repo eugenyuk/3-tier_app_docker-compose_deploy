@@ -3,9 +3,10 @@ This is a containerized hello world web application.
 
 ## Used technologies
 * Nginx
-* Python (Flask)
+* Python3.7 (Flask)
 * uWSGI
 * Docker (docker-compose)
+* Postgres 9.3
 
 ## Nginx configuration & containerization
 Dockerfile:
@@ -103,6 +104,25 @@ services:
     networks:
       flask-app-net:
         ipv4_address: 10.0.0.3
+  postgres:
+    # Take the image
+    image: postgres:9.3
+    # Redirect connection host:5432->container:5432
+    ports:
+      - "5432:5432"
+    environment:
+      # To create user
+      - POSTGRES_USER=test
+      # To make a password for external connections
+      - POSTGRES_PASSWORD=test
+      # To create a db
+      - POSTGRES_DB=test_db
+    volumes:
+      # Mount host dir into container to store data persistently
+      - ./containers/postgres/data:/var/lib/postgresql/data
+    networks:
+      flask-app-net:
+        ipv4_address: 10.0.0.4
 
 # Custom network description
 networks:
@@ -119,16 +139,19 @@ Every service is described. Also, the custom network 10.0.0.0/16 with default ga
 Run using docker-compose:
 ```bash
 [ansible-deploy]$ docker-compose up -d
-Starting ansible-deploy_nginx_1 ... done
-Starting ansible-deploy_flask_1 ... done
+Starting ansible-deploy_flask_1    ... done
+Starting ansible-deploy_nginx_1    ... done
+Starting ansible-deploy_postgres_1 ... done
 ```
 
 Check if containers are up:
 ```bash
-[ansible-deploy]$ docker ps
-CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                     NAMES
-f43b71bdb398        ansible-deploy_nginx   "nginx -g 'daemon of…"   29 minutes ago      Up 3 seconds        0.0.0.0:80->80/tcp        ansible-deploy_nginx_1
-4fde69c4d727        ansible-deploy_flask   "uwsgi --socket 0.0.…"   53 minutes ago      Up 3 seconds        0.0.0.0:32782->9000/tcp   ansible-deploy_flask_1
+[ansible-deploy]$ docker-compose ps
+          Name                         Command               State            Ports         
+--------------------------------------------------------------------------------------------
+ansible-deploy_flask_1      uwsgi --socket 0.0.0.0:900 ...   Up      0.0.0.0:32786->9000/tcp
+ansible-deploy_nginx_1      nginx -g daemon off;             Up      0.0.0.0:80->80/tcp     
+ansible-deploy_postgres_1   docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
 ```
 
 In browser, go to http://10.0.0.2/
