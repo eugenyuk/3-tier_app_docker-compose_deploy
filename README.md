@@ -110,7 +110,7 @@ networks:
         - subnet: 10.0.0.0/16
           gateway: 10.0.0.1
 ```
-Every service is described. Also, a custom network 10.0.0.0/16 with default gateway 10.0.0.1 is configured. Every service is connected to that network and static ip addresses are assigned.
+Every service is described. Also, the custom network 10.0.0.0/16 with default gateway 10.0.0.1 is configured. Every service is connected to that network and static ip addresses are assigned.
 
 ## How to deploy
 
