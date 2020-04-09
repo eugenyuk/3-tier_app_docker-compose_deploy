@@ -9,7 +9,7 @@ This is a containerized hello world web application.
 
 ## Nginx configuration & containerization
 Dockerfile:
-```
+```dockerfile
 # Base image. To make sure it is always fresh, not set a version tag.
 FROM	nginx
 # Copy config file from host to the container
@@ -32,7 +32,7 @@ server {
 
 ## Flask configuration & containerization
 Dockerfile:
-```
+```dockerfile
 # Base image
 FROM ubuntu:18.04
 
@@ -72,7 +72,7 @@ As it can be seen, uWSGI app server is configured to listen to socker 0.0.0.0:90
 
 ## Docker-compose configuration
 
-```
+```dockerfile
 # Specify version 2 (not 3) because ansible doesn't
 # support version 3 so far
 version: '2.4'
