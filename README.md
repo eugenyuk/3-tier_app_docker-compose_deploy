@@ -31,6 +31,8 @@ server {
 ```
 
 ## Flask configuration & containerization
+To comply with the requirement to use Ubuntu 18.04, the app is built using ubuntu:18.04 image.
+
 Dockerfile:
 ```dockerfile
 # Base image
@@ -67,7 +69,7 @@ RUN pip3 install -r ./requirements.txt
 # Autostart uwsgi app server
 CMD ["uwsgi", "--socket", "0.0.0.0:9000", "--wsgi-file", "app.py", "--callable", "app"]
 ```
-
+To 
 As it can be seen, uWSGI app server is configured to listen to socker 0.0.0.0:9000 and run *app* variable from file app.py for every new request.
 
 ## Docker-compose configuration
