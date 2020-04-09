@@ -128,3 +128,5 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 f43b71bdb398        ansible-deploy_nginx   "nginx -g 'daemon of…"   29 minutes ago      Up 3 seconds        0.0.0.0:80->80/tcp        ansible-deploy_nginx_1
 4fde69c4d727        ansible-deploy_flask   "uwsgi --socket 0.0.…"   53 minutes ago      Up 3 seconds        0.0.0.0:32782->9000/tcp   ansible-deploy_flask_1
 ```
+
+In browser, go to http://10.0.0.2/
