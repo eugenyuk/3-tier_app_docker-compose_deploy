@@ -1,7 +1,7 @@
+# Base image
 FROM ubuntu:18.04
 
-# Install bash within a container
-#RUN apk --update add bash
+# Install required packages
 RUN apt-get update && apt-get install -y \
 	software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 	curl \
 	python3-distutils \
 	gcc && \
+    # This is a hack-install pip3.7 for ubuntu 18.04
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3.7 get-pip.py
-#    apt-get install -y python3 python3-dev python3-pip uwsgi
 
 # Create app's dir and make it current
 RUN mkdir /flask
