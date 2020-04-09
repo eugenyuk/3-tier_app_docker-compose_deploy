@@ -27,14 +27,20 @@ services:
       flask-app-net:
         ipv4_address: 10.0.0.3
   postgres:
+    # Take the image
     image: postgres:9.3
+    # Redirect connection host:5432->container:5432
     ports:
       - "5432:5432"
     environment:
+      # To create user
       - POSTGRES_USER=test
+      # To make a password for external connections
       - POSTGRES_PASSWORD=test
+      # To create a db
       - POSTGRES_DB=test_db
     volumes:
+      # Mount host dir into container to store data persistently
       - ./containers/postgres/data:/var/lib/postgresql/data
     networks:
       flask-app-net:
