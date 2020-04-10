@@ -1,5 +1,5 @@
 # Hello world web app
-This is a containerized hello world web application.
+This is a containerized hello world 3-tier web application.
 
 ## Used technologies
 * Nginx
